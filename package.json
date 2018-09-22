@@ -1,0 +1,24 @@
+{
+  "name": "real-state-fund",
+  "version": "1.0.0",
+  "description": "Calculate dividend yield for a current Real State Funds",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allanhal/real-state-fund.git"
+  },
+  "author": "Allan Araújo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/allanhal/real-state-fund/issues"
+  },
+  "homepage": "https://github.com/allanhal/real-state-fund#readme",
+  "dependencies": {
+    "string-strip-html": "3.2.0",
+    "tabletojson": "0.9.8"
+  }
+}
