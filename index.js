@@ -1,39 +1,26 @@
 const tabletojson = require('tabletojson')
 const stripHtml = require("string-strip-html")
+let myCurrentFiis = require('./prefferedFiis')
 
-let myCurrentFiis = [{
-    cod: 'BBPO11',
-    qt: 1
-}, {
-    cod: 'AGCX11',
-    qt: 0
-}, {
-    cod: 'HGRE11',
-    qt: 0
-}, {
-    cod: 'XPCM11',
-    qt: 0
-}, {
-    cod: 'AEFI11',
-    qt: 0
-}, ]
+const MIN_PT = 0.8
+const MIN_DY = 8
 
 let currentFiisCod = myCurrentFiis.map(fii => fii.cod)
 
 const METHODS = [{
         url: 'https://fiis.com.br/indicadores-estendido/',
-        function: priceValue
+        function: showMyDY
     },
     {
-        url: 'https://fiis.com.br/resumo/',
-        function: showMyDY
+        url: 'https://fiis.com.br/indicadores-estendido/',
+        function: priceValue
     }
 ]
 
-console.log(`cod\tqt`)
-myCurrentFiis.forEach(myFii => {
-    console.log(`${myFii.cod}\t${myFii.qt}`)
-});
+// console.log(`cod\tqt`)
+// myCurrentFiis.forEach(myFii => {
+//     console.log(`${myFii.cod}\t${myFii.qt}`)
+// });
 main(METHODS[0])
 main(METHODS[1])
 
@@ -48,19 +35,15 @@ function main(currentMethod) {
     });
 }
 
-function priceValue(downloadedFiis) {
-    downloadedFiis.sort((a, b) => a["Cotação / Patrimônio*"] > b["Cotação / Patrimônio*"])
-    console.log('cod\tc/p\tannual yield')
-    downloadedFiis.forEach(completeFii => {
-        let cod = completeFii[`Código`]
-        let cp = completeFii["Cotação / Patrimônio*"]
-        let rendimento12meses = completeFii['Rendimento Médio (12 mêses)**']
-        rendimento12meses = rendimento12meses.split(`<br>`)[1]
-        console.log(`${cod}\t${cp}\t${rendimento12meses}`)
-    });
-}
-
 function showMyDY(downloadedFiis) {
+    function calculateIndividualDY(myFii, completeFii) {
+        let qt = myFii.qt
+        let rendimento = parseToNumber(completeFii["ÚltimoRendimento"].split(`<br>`)[0].split(`R$ `)[1])
+
+        let rendimentoTotal = qt * rendimento
+        return parseFloat(Math.round(rendimentoTotal * 100) / 100)
+    }
+
     let totalDY = 0
     downloadedFiis.forEach(completeFii => {
         let myFii = myCurrentFiis.find(fii => fii.cod == completeFii[`Código`])
@@ -70,11 +53,40 @@ function showMyDY(downloadedFiis) {
     console.log(totalDY)
 }
 
-function calculateIndividualDY(myFii, completeFii) {
-    let cod = myFii.cod
-    let qt = myFii.qt
-    let rendimentoParsed = completeFii['Rendimento R$'].split(',').join('.')
-    rendimentoParsed = Number(rendimentoParsed)
-    let rendimentoTotal = qt * rendimentoParsed
-    return parseFloat(Math.round(rendimentoTotal * 100) / 100)
+function priceValue(downloadedFiis) {
+    downloadedFiis = sortByCp(downloadedFiis);
+    downloadedFiis = sortByDY(downloadedFiis);
+    console.log('cod\tc/p\tannual yield')
+    downloadedFiis.forEach(completeFii => {
+        let cod = completeFii[`Código`]
+        let cp = parseToNumber(completeFii["Cotação / Patrimônio*"])
+        let rendimento12meses = parseToNumber(completeFii['Rendimento Médio (12 mêses)**'].split(`<br>`)[1])
+
+        if (cp >= MIN_PT)
+            if (rendimento12meses >= MIN_DY)
+                console.log(`${cod}\t${cp}\t${rendimento12meses}`)
+
+    });
+}
+
+function sortByCp(downloadedFiis) {
+    let field = "Cotação / Patrimônio*"
+    return downloadedFiis.sort((a, b) => {
+        let aParsed = parseToNumber(a[field]);
+        let bParsed = parseToNumber(b[field]);
+        return aParsed - bParsed;
+    });
+}
+
+function sortByDY(downloadedFiis) {
+    let field = 'Rendimento Médio (12 mêses)**'
+    return downloadedFiis.sort((a, b) => {
+        let aParsed = parseToNumber(a[field].split(`<br>`)[1]);
+        let bParsed = parseToNumber(b[field].split(`<br>`)[1]);
+        return aParsed - bParsed;
+    });
+}
+
+function parseToNumber(toConvert) {
+    return Number(toConvert.split(',').join('.').split('%').join(''))
 }
