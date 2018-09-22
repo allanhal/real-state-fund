@@ -1,5 +1,5 @@
-const tabletojson = require('tabletojson');
-const stripHtml = require("string-strip-html");
+const tabletojson = require('tabletojson')
+const stripHtml = require("string-strip-html")
 
 let myCurrentFiis = [{
     cod: 'BBPO11',
@@ -15,10 +15,10 @@ let myCurrentFiis = [{
     qt: 0
 }, {
     cod: 'AEFI11',
-    qt: 1
+    qt: 0
 }, ]
 
-let currentFiisCod = myCurrentFiis
+let currentFiisCod = myCurrentFiis.map(fii => fii.cod)
 
 const METHODS = [{
         url: 'https://fiis.com.br/indicadores-estendido/',
