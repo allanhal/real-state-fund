@@ -34,14 +34,14 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('frontend/dist'))
+app.use(express.static('./frontend/dist'))
 
 app.get('/', (req, res) => {
   res.send('ONLINE!')
 })
 
 app.get('/home', (req, res) => {
-  res.sendFile('frontend/dist/index.html')
+  res.sendFile('./frontend/dist/index.html')
 })
 // app.use('/', indexRouter);
 // app.use('/api/users', usersRouter);

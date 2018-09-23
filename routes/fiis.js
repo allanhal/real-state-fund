@@ -7,7 +7,7 @@ var router = express.Router();
 const URL = 'https://fiis.com.br/indicadores-estendido/'
 
 router.get('/my', function (req, res, next) {
-  let prefferedFiis = require('../prefferedFiis')
+  let prefferedFiis = require('./../prefferedFiis')
   res.json(prefferedFiis)
 });
 
