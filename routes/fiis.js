@@ -1,28 +1,18 @@
 const tabletojson = require('tabletojson')
 const stripHtml = require("string-strip-html")
 
+var path = require('path');
 var express = require('express');
 var router = express.Router();
 
 const URL = 'https://fiis.com.br/indicadores-estendido/'
+const prefferedFiis = require(path.join(__dirname, '../prefferedFiis'))
 
 router.get('/my', function (req, res, next) {
-  let prefferedFiis = require('./../prefferedFiis')
   res.json(prefferedFiis)
 });
 
-router.get('/all', function (req, res, next) {
-  tabletojson.convertUrl(URL, {
-    stripHtmlFromCells: false
-  }, (tablesAsJson) => {
-    let fiis = tablesAsJson[0]
-    fiis = parseFiisJson(fiis)
-    res.json(fiis)
-  });
-});
-
 router.get('/myComplete', function (req, res, next) {
-  let prefferedFiis = require('../../prefferedFiis')
   getAllFiis().then(fiis => {
     let fiisToReturn = []
     prefferedFiis.forEach(prefferedFii => {
@@ -34,6 +24,16 @@ router.get('/myComplete', function (req, res, next) {
 
     res.json(fiisToReturn)
   })
+});
+
+router.get('/', function (req, res, next) {
+  tabletojson.convertUrl(URL, {
+    stripHtmlFromCells: false
+  }, (tablesAsJson) => {
+    let fiis = tablesAsJson[0]
+    fiis = parseFiisJson(fiis)
+    res.json(fiis)
+  });
 });
 
 router.get('/:cod', function (req, res, next) {

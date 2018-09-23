@@ -7,9 +7,8 @@ var logger = require('morgan');
 var expressExpeditious = require('express-expeditious')
 var expeditiousEngineMemory = require('expeditious-engine-memory')
 
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
 var fiisRouter = require('./routes/fiis');
+var serveIndex = require('serve-index')
 
 var app = express();
 
@@ -17,7 +16,6 @@ cacheRequests()
 
 app.use(compression())
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -33,18 +31,14 @@ app.use(express.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('./frontend/dist'))
+app.use(express.static(__dirname + '/frontend/dist'))
 
-app.get('/', (req, res) => {
-  res.send('ONLINE!')
-})
+
 
 app.get('/home', (req, res) => {
-  res.sendFile('./frontend/dist/index.html')
+  res.sendFile(path.join(__dirname, '/frontend/dist/index.html'))
 })
-// app.use('/', indexRouter);
-// app.use('/api/users', usersRouter);
+
 app.use('/api/fiis', fiisRouter);
 
 // catch 404 and forward to error handler
