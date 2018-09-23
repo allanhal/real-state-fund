@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   myFiis
   totalValue = 0
   totalDY = 0
+  invalidAddCod
 
   constructor(private HttpService: HttpService) { }
 
@@ -39,11 +40,22 @@ export class AppComponent implements OnInit {
   }
 
   onButtonAdd(addCod) {
-    this.HttpService.getFii(addCod).subscribe(fii => {
-      fii.qt = 0
-      this.myFiis.push(fii)
-      this.updateSums()
-    })
+    this.invalidAddCod = undefined
+    if (addCod) {
+      this.HttpService.getFii(addCod).subscribe(fii => {
+        fii.qt = 0
+        this.myFiis.push(fii)
+        this.updateSums()
+      }, err => {
+        this.invalidAddCod = addCod
+      })
+    } else {
+      this.invalidAddCod = 'empty'
+    }
+  }
+
+  onInputAddCodChange() {
+    this.invalidAddCod = undefined
   }
 
   updateSums() {

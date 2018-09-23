@@ -43,7 +43,12 @@ router.get('/:cod', function (req, res, next) {
   }, (tablesAsJson) => {
     let fiis = tablesAsJson[0]
     fiis = parseFiisJson(fiis)
-    res.json(fiis.find(fii => fii.cod.toLowerCase() == cod.toLowerCase()))
+    let fii = fiis.find(fii => fii.cod.toLowerCase() == cod.toLowerCase())
+    if (fii) {
+      res.json(fii)
+    } else {
+      res.status(400).send('Fii not found.')
+    }
   });
 });
 

@@ -1,21 +1,26 @@
-<div class="container">
+<div class="container bg-light">
   <h2 class="text-center m-3">
     Real State Funds
   </h2>
   <div class="m-3">
-    <b>cod</b>
-    <input id="addCod" #addCod>
-    <i class="btn btn-primary btn-sm fas fa-plus" (click)='onButtonAdd(addCod.value)'></i>
+    <b>Code</b>
+    <input id="addCod" #addCod [value]="addCod.value" (input)="onInputAddCodChange()">
+    <a (click)='onButtonAdd(addCod.value)'>
+      <i class="btn btn-primary btn-sm fas fa-plus"></i>
+    </a>
+    <div *ngIf="invalidAddCod" class="alert alert-danger" role="alert">
+      Fii code "{{invalidAddCod}}" does not exist.
+    </div>
   </div>
   <div class="m-3">
     <table class="table table-striped table-bordered">
       <thead>
-        <th>cod</th>
-        <th>qt</th>
-        <th>price</th>
-        <th>total value</th>
-        <th>nextDY</th>
-        <th></th>
+        <th>Code</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total Value</th>
+        <th>Next Dividend Yield</th>
+        <th>Action</th>
       </thead>
       <tbody>
         <tr *ngFor="let myFii of myFiis; let i = index">
@@ -37,5 +42,4 @@
       </tbody>
     </table>
   </div>
-
 </div>
