@@ -7,10 +7,9 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   getMyFiis() {
-    return this.http.get<any>('http://localhost:3000/fiis/myComplete');
+    return this.http.get<any>('api/fiis/myComplete');
   }
   getFii(fiiCod: string) {
-    return this.http.get<any>(`http://localhost:3000/fiis/${fiiCod}`);
-
+    return this.http.get<any>(`api/fiis/${fiiCod}`);
   }
 }
