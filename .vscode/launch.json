@@ -8,13 +8,13 @@
             "type": "node",
             "request": "launch",
             "name": "standalone",
-            "program": "${workspaceFolder}/index.js"
+            "program": "${workspaceFolder}/standalone.js"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "backend",
-            "program": "${workspaceFolder}/backend/bin/www"
+            "program": "${workspaceFolder}/index.js"
         }
     ]
 }

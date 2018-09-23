@@ -2,9 +2,9 @@
   "name": "real-state-fund",
   "version": "1.0.0",
   "description": "Calculate dividend yield for a current Real State Funds",
-  "main": "backend/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node backend/index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,9 +18,17 @@
   },
   "homepage": "https://github.com/allanhal/real-state-fund#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.3.1",
+    "compression": "1.7.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "expeditious-engine-memory": "^0.2.1",
+    "express-expeditious": "^4.0.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
     "bootstrap": "^4.1.3",
-    "compression": "^1.7.3",
-    "express": "^4.16.3",
+    "express": "4.16.3",
     "string-strip-html": "3.2.0",
     "tabletojson": "0.9.8"
   }
