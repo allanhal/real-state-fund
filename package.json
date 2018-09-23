@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "cd frontend/ && ng build --prod",
+    "postinstall": "cd frontend/ && npm i && ng build --prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -34,6 +34,6 @@
     "tabletojson": "0.9.8"
   },
   "devDependencies": {
-    "@angular/cli": "^6.2.3"
+    "@angular/cli": "1.5.0"
   }
 }
