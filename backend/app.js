@@ -7,8 +7,8 @@ var logger = require('morgan');
 var expressExpeditious = require('express-expeditious')
 var expeditiousEngineMemory = require('expeditious-engine-memory')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
 var fiisRouter = require('./routes/fiis');
 
 var app = express();
@@ -37,6 +37,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../frontend/dist')))
 
 app.get('/', (req, res) => {
+  res.send('ONLINE!')
+})
+
+app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'))
 })
 // app.use('/', indexRouter);
