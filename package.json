@@ -4,7 +4,7 @@
   "description": "Calculate dividend yield for a current Real State Funds",
   "main": "index.js",
   "scripts": {
-    "start": "node .backend/bin/www",
+    "start": "node backend/bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
