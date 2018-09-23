@@ -2,7 +2,7 @@
   "name": "real-state-fund",
   "version": "1.0.0",
   "description": "Calculate dividend yield for a current Real State Funds",
-  "main": "index.js",
+  "main": "backend/bin/www",
   "scripts": {
     "start": "node backend/bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
