@@ -27,6 +27,7 @@
     "compression": "^1.7.3",
     "core-js": "^2.4.1",
     "express": "^4.16.3",
+    "ngx-loading": "^1.0.15",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },

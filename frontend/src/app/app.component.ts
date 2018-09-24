@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   totalValue = 0
   totalDY = 0
   invalidAddCod
+  loading = false;
 
   constructor(private HttpService: HttpService) { }
 
@@ -19,9 +20,11 @@ export class AppComponent implements OnInit {
   }
 
   getMyFiis() {
+    this.loading = true;
     this.HttpService.getMyFiis().subscribe(myFiis => {
       this.myFiis = myFiis
       this.updateSums()
+      this.loading = false;
     })
   }
 
@@ -42,12 +45,15 @@ export class AppComponent implements OnInit {
   onButtonAdd(addCod) {
     this.invalidAddCod = undefined
     if (addCod) {
+      this.loading = true;
       this.HttpService.getFii(addCod).subscribe(fii => {
         fii.qt = 0
         this.myFiis.push(fii)
         this.updateSums()
+        this.loading = false;
       }, err => {
         this.invalidAddCod = addCod
+        this.loading = false;
       })
     } else {
       this.invalidAddCod = 'empty'

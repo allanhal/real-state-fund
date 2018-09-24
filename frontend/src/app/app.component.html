@@ -1,10 +1,11 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
 <div class="container bg-light">
   <h2 class="text-center m-3">
     Real State Funds
   </h2>
   <div class="m-3">
     <b>Code</b>
-    <input id="addCod" #addCod [value]="addCod.value" (input)="onInputAddCodChange()">
+    <input id="addCod" #addCod [value]="addCod.value" (input)="onInputAddCodChange()" (keydown.enter)='onButtonAdd(addCod.value)'>
     <a (click)='onButtonAdd(addCod.value)'>
       <i class="btn btn-primary btn-sm fas fa-plus"></i>
     </a>

@@ -8,7 +8,6 @@ var expressExpeditious = require('express-expeditious')
 var expeditiousEngineMemory = require('expeditious-engine-memory')
 
 var fiisRouter = require('./routes/fiis');
-var serveIndex = require('serve-index')
 
 var app = express();
 
@@ -33,26 +32,20 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(__dirname + '/frontend/dist'))
 
-
-
 app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/dist/index.html'))
 })
 
 app.use('/api/fiis', fiisRouter);
 
-// catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = err;
 
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });

@@ -1,31 +1,16 @@
 [{
     "cod": "BBPO11",
-    "qt": 0,
-    "qt2": 27
-}, {
-    "cod": "AGCX11",
-    "qt": 0,
-    "qt2": 1
-}, {
-    "cod": "HGRE11",
-    "qt": 0,
-    "qt2": 1
-}, {
-    "cod": "XPCM11",
-    "qt": 0,
-    "qt2": 4
-}, {
-    "cod": "AEFI11",
-    "qt": 0,
-    "qt2": 14
-}, {
-    "cod": "SAAG11",
-    "qt": 0,
-    "qt2": 14
-}, {
-    "cod": "MAXR11",
     "qt": 0
 }, {
-    "cod": "KNRI11",
+    "cod": "AGCX11",
+    "qt": 0
+}, {
+    "cod": "HGRE11",
+    "qt": 0
+}, {
+    "cod": "XPCM11",
+    "qt": 0
+}, {
+    "cod": "AEFI11",
     "qt": 0
 }]
