@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   myFiis
   totalValue = 0
   totalDY = 0
+  sumDYAnnual = 0
   invalidAddCod
   loading = false;
 
@@ -67,12 +68,20 @@ export class AppComponent implements OnInit {
   updateSums() {
     this.totalValue = 0
     this.totalDY = 0
+    this.sumDYAnnual = 0
     this.myFiis.forEach(fii => {
       this.totalValue += this.parseNumber(fii.price) * this.parseNumber(fii.qt)
       this.totalDY += this.parseNumber(fii.lastDy) * this.parseNumber(fii.qt)
       this.totalValue = this.parseNumber(this.totalValue)
       this.totalDY = this.parseNumber(this.totalDY)
     });
+    this.myFiis.forEach(fii => {
+      let totalFii = fii.price * fii.qt
+      let participation = totalFii/this.totalValue
+      this.sumDYAnnual += this.parseNumber(fii.annualAverageDyPercentage) * this.parseNumber(participation)
+      this.sumDYAnnual = this.parseNumber(this.sumDYAnnual)
+    });
+
   }
 
   private parseNumber(toParse) {
