@@ -19,6 +19,8 @@
         <th>Code</th>
         <th>Quantity</th>
         <th>Price</th>
+        <th>V/P</th>
+        <th>DY Annual</th>
         <th>Total Value</th>
         <th>Next Dividend Yield</th>
         <th>Action</th>
@@ -26,14 +28,18 @@
       <tbody>
         <tr *ngFor="let myFii of myFiis; let i = index">
           <td>{{myFii.cod}}</td>
-          <td><input type="text" name="cod" id="" value="{{myFii.qt}}" (input)="onInputQtChange(myFii, $event.target.value)"></td>
+          <td><input class="form-control form-control-sm" type="text" name="cod" id="" value="{{myFii.qt}}" (input)="onInputQtChange(myFii, $event.target.value)"></td>
           <td>{{parseNumber(myFii.price)}}</td>
+          <td>{{parseNumber(myFii.vp)}}</td>
+          <td>{{parseNumber(myFii.annualAverageDyPercentage)}}</td>
           <td>{{parseNumber(myFii.price * myFii.qt)}}</td>
           <td>{{parseNumber(myFii.lastDy * myFii.qt)}}</td>
           <td><i class="btn btn-danger btn-sm fas fa-trash-alt" (click)='onButtonRemove(myFii)'></i></td>
         </tr>
         <tr>
           <td><i class="btn btn-primary btn-lg fas fa-sync" (click)='onButtonRefresh()'></i></td>
+          <td></td>
+          <td></td>
           <td></td>
           <td></td>
           <td>{{totalValue}}</td>
