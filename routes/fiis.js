@@ -61,12 +61,14 @@ function getAllFiis() {
           fiiFromFundsExplorer = fiisFromFundsExplorer.find(fiiFromFundsExplorer => fiiFromFundsExplorer.cod == fii.cod)
           if (fiiFromFundsExplorer) {
             fii.price = fiiFromFundsExplorer.price
-          } else {
-            fii.price = undefined
+            fii.vp = to2Decimal(fii.price / fii.valuePrice)
+            fii.lastDyPercentage = to2Decimal(fii.lastDy / fii.price * 100)
+            fii.lastDyPercentageAnnualy = to2Decimal(fii.lastDy / fii.price * 100 * 12)
+            fii.annualAverageDyPercentage = to2Decimal(fii.annualAverageDy / fii.price * 100 * 12)
           }
         });
+        resolve(fiis)
       })
-      resolve(fiis)
     });
   })
 }
@@ -153,7 +155,11 @@ function parseFiiJson(fii) {
 }
 
 function parseNumber(toParse, multiplier = 1) {
-  return parseFloat(Math.round(Number(toParse.split('%').join('').split('R$').join('').split('.').join('').split(',').join('.')) * multiplier * 100) / 100)
+  return to2Decimal(Number(toParse.split('%').join('').split('R$').join('').split('.').join('').split(',').join('.')), multiplier)
+}
+
+function to2Decimal(toParse, multiplier = 1) {
+  return parseFloat(Math.round(toParse * multiplier * 100) / 100)
 }
 
 module.exports = router;
