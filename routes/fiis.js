@@ -125,6 +125,7 @@ function parseFiisJson(fiis) {
 function parseFiiJson(fii) {
   fii['Código'] = stripHtml(fii['Código'])
   fii.cod = fii['Código'].split('*')[0].trim()
+  fii.link = `http://fiis.com.br/${fii.cod}`
   delete fii['Código']
 
   fii.price = parseNumber(fii['Cotação Usada'])
