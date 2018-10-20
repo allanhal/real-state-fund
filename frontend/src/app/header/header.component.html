@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row bg-light">
+    <div class="col">
+      <div class="text-center">
+        <h2 class="">Fii Info</h2>
+        <a routerLink="/main" routerLinkActive="active">Main</a> /
+        <a routerLink="/my-wallet" routerLinkActive="active">My Wallet</a>
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3 p-4">
+        <input #searchCod type="text" class="form-control" (keydown.enter)='search(searchCod.value)' (ngModelChange)='changed($event)'>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)='search(searchCod.value)'>Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

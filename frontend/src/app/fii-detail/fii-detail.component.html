@@ -1,0 +1,90 @@
+<div *ngIf="isInvalid">
+  {{isInvalid}}
+</div>
+<div *ngIf="!isInvalid">
+  <div class="p-5">
+    <div class="text-left">
+      <div>
+        <div class="d-flex justify-content-start">
+          <p class="h4">{{fii.cod}}</p>
+          &nbsp;
+          <div>
+            <p><span class="small text-muted">last</span><span class="{{fii.lastDyPercentageAnnualy > targetPercentual ? 'text-success' : 'text-danger' }}">{{lastDyPercentageAnnualy}}</span>
+            </p>
+          </div>
+          &nbsp;
+          <div>
+            <p><span class="small text-muted">average</span><span class="{{fii.annualAverageDyPercentage > targetPercentual ? 'text-success' : 'text-danger' }}">{{annualAverageDyPercentage}}</span></p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-start">
+          <span class="small text-muted">R$</span>
+          <p class="h1 display-4"> {{fii.price}}</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="m-2">
+        <div class="d-flex justify-content-between">
+          <div class="text-left">Valor Cota</div>
+          <div class="text-right"><span class="small text-muted">R$</span> {{fii.price}}</div>
+        </div>
+        <div class="progress text-left bg-dark" style="height: 30px;">
+          <div class="progress-bar bg-primary" role="progressbar" [style.width]="pricePercentage"></div>
+          <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" [style.width]="pricePercentageRest">
+          </div>
+        </div>
+        <div class="text-right">
+          <small class="text-muted">&nbsp;{{pricePercentageRest}}</small>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="text-left">Valor Patrimonial por Cota</div>
+          <div class="text-right"><span class="small text-muted">R$</span> {{fii.valuePrice}}</div>
+        </div>
+        <div class="progress text-left bg-dark" style="height: 30px;">
+          <div class="progress-bar bg-primary" role="progressbar" [style.width]="vpPercentage"></div>
+          <div class="progress-bar progress-bar-striped bg-info" role="progressbar" [style.width]="vpPercentageRest"></div>
+        </div>
+        <div class="text-right">
+          <small class="text-muted">&nbsp;{{vpPercentageRest}}</small>
+        </div>
+      </div>
+
+      <p>
+        {{fii.type}}
+      </p>
+      <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let fiiSameSegment of otherFromSameSegment; let i = index"><small><a
+              routerLink="/fii/{{fiiSameSegment.cod}}" routerLinkActive="active">{{fiiSameSegment.cod}}</a></small></li>
+      </ul>
+      <p>
+        {{fii.segment}}
+      </p>
+      <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let fiiSameType of otherFromSameType; let i = index"><small><a routerLink="/fii/{{fiiSameType.cod}}"
+              routerLinkActive="active">{{fiiSameType.cod}}</a></small></li>
+      </ul>
+
+      <!-- <div class="container">
+      <div class="row" *ngFor="let key of fiiKeys; let i = index">
+        <div class="col-6">
+          {{key}}
+        </div>
+        <div class="col-6">
+          {{fii[key]}}
+        </div>
+      </div>
+    </div> -->
+
+      <!-- <table class="table table-striped table-bordered">
+      <tbody>
+        <tr *ngFor="let key of fiiKeys; let i = index">
+          <td>{{key}}</td>
+          <td>{{fii[key]}}</td>
+        </tr>
+      </tbody>
+    </table> -->
+
+    </div>
+  </div>
+</div>

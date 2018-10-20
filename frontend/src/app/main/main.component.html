@@ -1,0 +1,33 @@
+<!-- <i class="btn btn-danger btn-sm fas fa-trash-alt" (click)='sort()'></i> -->
+<!-- <i class="btn btn-danger btn-sm fas fa-trash-alt" (click)='sort(true)'></i> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let fii of allFiis; let i = index">
+      <div class="card m-3">
+        <div class="card-body">
+          <h5 class="card-title"><a routerLink="/fii/{{fii.cod}}" routerLinkActive="active">{{fii.cod}}</a></h5>
+          <p class="card-text">
+            <span>{{fii.cod}}</span>
+            <span><small class="text-muted">R$</small> {{fii.price}}</span>
+            <br>
+            <span><small class="text-muted">{{fii.segment}}</small> </span>
+            <br>
+            <span><small class="text-muted">{{fii.type}}</small> </span>
+            <br>
+            <small>
+              last
+            </small>
+            <span class="{{fii.lastDyPercentageAnnualy > targetPercentual ? 'text-success' : 'text-danger' }}">{{fii.lastDyPercentageAnnualy}}</span>
+            <br>
+            <small>
+              average
+            </small>
+            <span class="{{fii.annualAverageDyPercentage > targetPercentual ? 'text-success' : 'text-danger' }}">{{fii.annualAverageDyPercentage}}</span>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

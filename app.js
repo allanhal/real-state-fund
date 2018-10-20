@@ -62,7 +62,7 @@ function cacheRequests() {
     defaultTtl: '20 minute',
     engine: expeditiousEngineMemory()
   });
-  app.use(expressCache)
+  // app.use(expressCache)
 }
 
 module.exports = app;
