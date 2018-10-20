@@ -32,11 +32,11 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(__dirname + '/frontend/dist'))
 
-app.get('/home', (req, res) => {
+app.use('/api/fiis', fiisRouter);
+
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/dist/index.html'))
 })
-
-app.use('/api/fiis', fiisRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

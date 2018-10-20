@@ -16,9 +16,15 @@ import { TinyStateModule } from '@tinystate/core';
 import { GlobalContainerService } from './shared/global-container.service';
 
 const appRoutes: Routes = [
-  { path: 'my-wallet', component: MyWalletComponent },
-  { path: 'main', component: MainComponent },
-  { path: 'fii/:id', component: FiiDetailComponent },
+  {
+    path: 'my-wallet', component: MyWalletComponent
+  },
+  {
+    path: 'main', component: MainComponent
+  },
+  {
+    path: 'fii/:id', component: FiiDetailComponent
+  },
   {
     path: '',
     redirectTo: '/main',

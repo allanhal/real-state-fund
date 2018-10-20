@@ -9,12 +9,12 @@
           <p class="h4">{{fii.cod}}</p>
           &nbsp;
           <div>
-            <p><span class="small text-muted">last</span><span class="{{fii.lastDyPercentageAnnualy > targetPercentual ? 'text-success' : 'text-danger' }}">{{lastDyPercentageAnnualy}}</span>
+            <p><span class="small text-muted">last</span>&nbsp;<span class="{{fii.lastDyPercentageAnnualy > targetPercentual ? 'text-success' : 'text-danger' }}">{{lastDyPercentageAnnualy}}</span>
             </p>
           </div>
           &nbsp;
           <div>
-            <p><span class="small text-muted">average</span><span class="{{fii.annualAverageDyPercentage > targetPercentual ? 'text-success' : 'text-danger' }}">{{annualAverageDyPercentage}}</span></p>
+            <p><span class="small text-muted">average</span>&nbsp;<span class="{{fii.annualAverageDyPercentage > targetPercentual ? 'text-success' : 'text-danger' }}">{{annualAverageDyPercentage}}</span></p>
           </div>
         </div>
         <div class="d-flex justify-content-start">
@@ -26,7 +26,7 @@
     <div>
       <div class="m-2">
         <div class="d-flex justify-content-between">
-          <div class="text-left">Valor Cota</div>
+          <div class="text-left">Paper price</div>
           <div class="text-right"><span class="small text-muted">R$</span> {{fii.price}}</div>
         </div>
         <div class="progress text-left bg-dark" style="height: 30px;">
@@ -38,7 +38,7 @@
           <small class="text-muted">&nbsp;{{pricePercentageRest}}</small>
         </div>
         <div class="d-flex justify-content-between">
-          <div class="text-left">Valor Patrimonial por Cota</div>
+          <div class="text-left">Value price per paper</div>
           <div class="text-right"><span class="small text-muted">R$</span> {{fii.valuePrice}}</div>
         </div>
         <div class="progress text-left bg-dark" style="height: 30px;">
