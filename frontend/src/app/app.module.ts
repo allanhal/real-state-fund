@@ -47,7 +47,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     LoadingModule.forRoot({
       animationType: ANIMATION_TYPES.cubeGrid,
-      backdropBackgroundColour: 'rgba(0,0,0,0.9)',
+      backdropBackgroundColour: 'rgba(0,0,0,0)',
       backdropBorderRadius: '0px',
       primaryColour: '#007bff',
       secondaryColour: '#ffffff',
