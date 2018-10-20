@@ -9,7 +9,7 @@
     </div>
     <div class="col">
       <div class="input-group mb-3 p-4">
-        <input #searchCod type="text" class="form-control" (keydown.enter)='search(searchCod.value)' (ngModelChange)='changed($event)'>
+        <input #searchCod type="text" class="form-control" (keydown.enter)='search(searchCod.value)'>
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" (click)='search(searchCod.value)'>Search</button>
         </div>
