@@ -41,7 +41,6 @@ export class FiiDetailComponent implements OnInit {
   }
 
   fiiUpdate() {
-    console.log('this.globalState.changeState({ loading: true })')
     this.route.params.subscribe(params => {
       this.globalState.changeState({ loading: true })
       this.HttpService.getFii(params.id).subscribe(fii => {
@@ -73,7 +72,6 @@ export class FiiDetailComponent implements OnInit {
         this.HttpService.getType(fii.type).subscribe(typeResult => {
           this.otherFromSameType = typeResult
         })
-        console.log('this.globalState.changeState({ loading: false })')
         this.globalState.changeState({ loading: false })
         this.isInvalid = undefined
       }, err => {
