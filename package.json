@@ -4,7 +4,8 @@
   "description": "Calculate dividend yield for a current Real State Funds",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "postinstall": "cd frontend/ && npm i && ng build --prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
