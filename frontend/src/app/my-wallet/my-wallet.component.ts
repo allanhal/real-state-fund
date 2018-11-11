@@ -2,6 +2,7 @@ import { GlobalContainerService } from './../shared/global-container.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../shared/http.service';
 import { Observable } from 'rxjs/Observable';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-my-wallet',
@@ -14,9 +15,13 @@ export class MyWalletComponent implements OnInit {
   totalDY = 0
   sumDYAnnual = 0
   invalidAddCod
+  lastSort
+
+  targetPercentual: Observable<Number> = this.globalState.select(state => state.targetPercentual);
 
   constructor(private HttpService: HttpService,
-    private globalState: GlobalContainerService) { }
+    private globalState: GlobalContainerService,
+    public utilsService: UtilsService) { }
 
   ngOnInit() {
     this.getMyFiis()
@@ -26,6 +31,21 @@ export class MyWalletComponent implements OnInit {
     this.globalState.changeState({ loading: true })
     this.HttpService.getMyFiis().subscribe(myFiis => {
       this.myFiis = myFiis
+
+      myFiis.forEach(fii => {
+
+
+        let vpAsPercentage = this.utilsService.parse(fii['vp'] % 1 * 100)
+        if (fii.vp >= 1) {
+          fii.vpPercentage = this.utilsService.parseToPercentageString(100 - (vpAsPercentage))
+          fii.vpPercentageRest = this.utilsService.parseToPercentageString(vpAsPercentage)
+        } else {
+          fii.pricePercentage = this.utilsService.parseToPercentageString(vpAsPercentage)
+          fii.pricePercentageRest = this.utilsService.parseToPercentageString((100 - (vpAsPercentage)))
+        }
+
+      });
+
       this.updateSums()
       this.globalState.changeState({ loading: false })
     })
@@ -84,6 +104,19 @@ export class MyWalletComponent implements OnInit {
       this.sumDYAnnual = this.parseNumber(this.sumDYAnnual)
     });
 
+  }
+
+  sortByField(field: string) {
+    let invert = false;
+    if (this.lastSort == field) {
+      invert = true;
+      this.lastSort = undefined
+    } else {
+      this.lastSort = field
+    }
+    this.myFiis.sort((fiiA, fiiB) => {
+      return invert ? fiiA[field] - fiiB[field] : fiiB[field] - fiiA[field]
+    })
   }
 
   private parseNumber(toParse) {
