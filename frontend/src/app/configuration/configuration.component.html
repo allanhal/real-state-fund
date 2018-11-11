@@ -3,9 +3,9 @@
 
     <b>Target Yield</b>
     <input id="targetYield" #targetYield [value]="targetPercentual | async">%
-    <div *ngIf="invalidTargetYield" class="alert alert-danger" role="alert">
+    <!-- <div *ngIf="invalidTargetYield" class="alert alert-danger" role="alert">
       {{invalidTargetYield}}
-    </div>
+    </div> -->
   </div>
   <div class="p-1">
     <button class="btn btn-info btn-sm" (click)='onButtonSave(targetYield.value)'>Save</button>
