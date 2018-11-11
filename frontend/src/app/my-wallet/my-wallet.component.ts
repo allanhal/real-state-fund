@@ -32,19 +32,7 @@ export class MyWalletComponent implements OnInit {
     this.HttpService.getMyFiis().subscribe(myFiis => {
       this.myFiis = myFiis
 
-      myFiis.forEach(fii => {
-
-
-        let vpAsPercentage = this.utilsService.parse(fii['vp'] % 1 * 100)
-        if (fii.vp >= 1) {
-          fii.vpPercentage = this.utilsService.parseToPercentageString(100 - (vpAsPercentage))
-          fii.vpPercentageRest = this.utilsService.parseToPercentageString(vpAsPercentage)
-        } else {
-          fii.pricePercentage = this.utilsService.parseToPercentageString(vpAsPercentage)
-          fii.pricePercentageRest = this.utilsService.parseToPercentageString((100 - (vpAsPercentage)))
-        }
-
-      });
+      myFiis.map(fii => fii = this.updateVpRatio(fii));
 
       this.updateSums()
       this.globalState.changeState({ loading: false })
@@ -71,6 +59,9 @@ export class MyWalletComponent implements OnInit {
       this.globalState.changeState({ loading: true })
       this.HttpService.getFii(addCod).subscribe(fii => {
         fii.qt = 0
+
+        fii = this.updateVpRatio(fii);
+
         this.myFiis.push(fii)
         this.updateSums()
         this.globalState.changeState({ loading: false })
@@ -81,6 +72,19 @@ export class MyWalletComponent implements OnInit {
     } else {
       this.invalidAddCod = 'empty'
     }
+  }
+
+  private updateVpRatio(fii: any) {
+    let vpAsPercentage = this.utilsService.parse(fii['vp'] % 1 * 100);
+    if (fii.vp >= 1) {
+      fii.vpPercentage = this.utilsService.parseToPercentageString(100 - (vpAsPercentage));
+      fii.vpPercentageRest = this.utilsService.parseToPercentageString(vpAsPercentage);
+    }
+    else {
+      fii.pricePercentage = this.utilsService.parseToPercentageString(vpAsPercentage);
+      fii.pricePercentageRest = this.utilsService.parseToPercentageString((100 - (vpAsPercentage)));
+    }
+    return fii
   }
 
   onInputAddCodChange() {
