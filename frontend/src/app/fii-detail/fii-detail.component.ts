@@ -1,7 +1,9 @@
+import { UtilsService } from './../utils.service';
 import { GlobalContainerService } from './../shared/global-container.service';
 import { HttpService } from '../shared/http.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-fii-detail',
@@ -17,7 +19,7 @@ export class FiiDetailComponent implements OnInit {
 
   price: Number = 0
 
-  targetPercentual: Number = 8;
+  targetPercentual: Observable<Number> = this.globalState.select(state => state.targetPercentual);
 
   pricePercentage: string = `0%`
   pricePercentageRest: string = `0%`
@@ -34,7 +36,8 @@ export class FiiDetailComponent implements OnInit {
 
   constructor(private HttpService: HttpService,
     private route: ActivatedRoute,
-    private globalState: GlobalContainerService) { }
+    private globalState: GlobalContainerService,
+    public utilsService: UtilsService) { }
 
   ngOnInit() {
     this.fiiUpdate()
@@ -53,17 +56,17 @@ export class FiiDetailComponent implements OnInit {
 
         this.setDefaultValues()
 
-        let vpAsPercentage = this.parse(fii['vp'] % 1 * 100)
+        let vpAsPercentage = this.utilsService.parse(fii['vp'] % 1 * 100)
         if (this.vp >= 1) {
-          this.vpPercentage = this.parseToPercentageString(100 - (vpAsPercentage))
-          this.vpPercentageRest = this.parseToPercentageString(vpAsPercentage)
+          this.vpPercentage = this.utilsService.parseToPercentageString(100 - (vpAsPercentage))
+          this.vpPercentageRest = this.utilsService.parseToPercentageString(vpAsPercentage)
         } else {
-          this.pricePercentage = this.parseToPercentageString(vpAsPercentage)
-          this.pricePercentageRest = this.parseToPercentageString((100 - (vpAsPercentage)))
+          this.pricePercentage = this.utilsService.parseToPercentageString(vpAsPercentage)
+          this.pricePercentageRest = this.utilsService.parseToPercentageString((100 - (vpAsPercentage)))
         }
 
-        this.lastDyPercentageAnnualy = this.parseToPercentageString(fii.lastDyPercentageAnnualy)
-        this.annualAverageDyPercentage = this.parseToPercentageString(fii.annualAverageDyPercentage)
+        this.lastDyPercentageAnnualy = this.utilsService.parseToPercentageString(fii.lastDyPercentageAnnualy)
+        this.annualAverageDyPercentage = this.utilsService.parseToPercentageString(fii.annualAverageDyPercentage)
 
         this.HttpService.getSegment(fii.segment).subscribe(segmentResult => {
           this.otherFromSameSegment = segmentResult
@@ -80,6 +83,7 @@ export class FiiDetailComponent implements OnInit {
       })
     })
   }
+
   private setDefaultValues() {
     this.pricePercentage = `100%`
     this.pricePercentageRest = ``
@@ -87,10 +91,5 @@ export class FiiDetailComponent implements OnInit {
     this.vpPercentage = `100%`
     this.vpPercentageRest = ``
   }
-  private parseToPercentageString(toParse: number) {
-    return this.parse(toParse) + '%'
-  }
-  private parse(toParse: number) {
-    return Math.round(toParse * 100) / 100
-  }
+
 }

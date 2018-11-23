@@ -1,12 +1,41 @@
-<!-- <i class="btn btn-danger btn-sm fas fa-trash-alt" (click)='sort()'></i> -->
-<!-- <i class="btn btn-danger btn-sm fas fa-trash-alt" (click)='sort(true)'></i> -->
-
 <div class="container">
+  <div class="row p-3">
+    <div class="col text-right">
+      <button class="btn btn-info btn-sm" (click)='sortByField("vp")'>vp</button>
+      <button class="btn btn-info btn-sm" (click)='sortByField("lastDyPercentageAnnualy")'>dy</button>
+      <button class="btn btn-info btn-sm" (click)='sortByField("annualAverageDyPercentage")'>annual dy</button>
+    </div>
+  </div>
   <div class="row">
     <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let fii of allFiis; let i = index">
       <div class="card m-3">
         <div class="card-body">
           <h5 class="card-title"><a routerLink="/fii/{{fii.cod}}" routerLinkActive="active">{{fii.cod}}</a></h5>
+
+          <div>
+            <div *ngIf="fii.vp<1">
+              <div class="progress text-left bg-dark" style="height: 10px;">
+                <div class="progress-bar bg-primary" role="progressbar" [style.width]="fii.pricePercentage"></div>
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="fii.pricePercentageRest">
+                </div>
+              </div>
+              <div class="text-right">
+                <small class="text-muted">&nbsp;{{fii.pricePercentageRest}}</small>
+              </div>
+            </div>
+
+            <div *ngIf="fii.vp>=1">
+              <div class="progress text-left bg-dark" style="height: 10px;">
+                <div class="progress-bar bg-primary" role="progressbar" [style.width]="fii.vpPercentage"></div>
+                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" [style.width]="fii.vpPercentageRest"></div>
+              </div>
+              <div class="text-right">
+                <small class="text-muted">&nbsp;{{fii.vpPercentageRest}}</small>
+              </div>
+
+            </div>
+          </div>
+
           <p class="card-text">
             <span>{{fii.cod}}</span>
             <span><small class="text-muted">R$</small> {{fii.price}}</span>
@@ -18,12 +47,15 @@
             <small>
               last
             </small>
-            <span class="{{fii.lastDyPercentageAnnualy > targetPercentual ? 'text-success' : 'text-danger' }}">{{fii.lastDyPercentageAnnualy}}</span>
+            <span class="{{fii.lastDyPercentageAnnualy >= (targetPercentual | async) ? 'text-success' : 'text-danger' }}">{{fii.lastDyPercentageAnnualy}}</span>
             <br>
             <small>
               average
             </small>
-            <span class="{{fii.annualAverageDyPercentage > targetPercentual ? 'text-success' : 'text-danger' }}">{{fii.annualAverageDyPercentage}}</span>
+            <span class="{{fii.annualAverageDyPercentage >= (targetPercentual | async) ? 'text-success' : 'text-danger' }}">{{fii.annualAverageDyPercentage}}</span>
+
+
+
           </p>
         </div>
 

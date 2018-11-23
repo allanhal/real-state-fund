@@ -14,10 +14,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 import { TinyStateModule } from '@tinystate/core';
 import { GlobalContainerService } from './shared/global-container.service';
+import { UtilsService } from './utils.service';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 const appRoutes: Routes = [
   {
     path: 'my-wallet', component: MyWalletComponent
+  },
+  {
+    path: 'config', component: ConfigurationComponent
   },
   {
     path: 'main', component: MainComponent
@@ -41,6 +46,7 @@ const appRoutes: Routes = [
     MyWalletComponent,
     FiiDetailComponent,
     PageNotFoundComponent,
+    ConfigurationComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +65,7 @@ const appRoutes: Routes = [
       { enableTracing: false } // <-- debugging purposes only
     )
   ],
-  providers: [HttpService, GlobalContainerService],
+  providers: [HttpService, GlobalContainerService, UtilsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

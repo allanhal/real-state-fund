@@ -9,12 +9,12 @@
           <p class="h4">{{fii.cod}}</p>
           &nbsp;
           <div>
-            <p><span class="small text-muted">last</span>&nbsp;<span class="{{fii.lastDyPercentageAnnualy > targetPercentual ? 'text-success' : 'text-danger' }}">{{lastDyPercentageAnnualy}}</span>
+            <p><span class="small text-muted">last</span>&nbsp;<span class="{{fii.lastDyPercentageAnnualy >= (targetPercentual | async) ? 'text-success' : 'text-danger' }}">{{lastDyPercentageAnnualy}}</span>
             </p>
           </div>
           &nbsp;
           <div>
-            <p><span class="small text-muted">average</span>&nbsp;<span class="{{fii.annualAverageDyPercentage > targetPercentual ? 'text-success' : 'text-danger' }}">{{annualAverageDyPercentage}}</span></p>
+            <p><span class="small text-muted">average</span>&nbsp;<span class="{{fii.annualAverageDyPercentage >= (targetPercentual | async) ? 'text-success' : 'text-danger' }}">{{annualAverageDyPercentage}}</span></p>
           </div>
         </div>
         <div class="d-flex justify-content-start">
@@ -31,7 +31,7 @@
         </div>
         <div class="progress text-left bg-dark" style="height: 30px;">
           <div class="progress-bar bg-primary" role="progressbar" [style.width]="pricePercentage"></div>
-          <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" [style.width]="pricePercentageRest">
+          <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="pricePercentageRest">
           </div>
         </div>
         <div class="text-right">
@@ -43,7 +43,7 @@
         </div>
         <div class="progress text-left bg-dark" style="height: 30px;">
           <div class="progress-bar bg-primary" role="progressbar" [style.width]="vpPercentage"></div>
-          <div class="progress-bar progress-bar-striped bg-info" role="progressbar" [style.width]="vpPercentageRest"></div>
+          <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" [style.width]="vpPercentageRest"></div>
         </div>
         <div class="text-right">
           <small class="text-muted">&nbsp;{{vpPercentageRest}}</small>
